@@ -36,6 +36,11 @@ jobs:
       run: |
         ls -lR --group-directories-first
         rm -rf ./StarRail-S-GC/x64/Release/*.pdb
+        rm -rf ./StarRail-S-GC/x64/Release/*.ipdb
+        rm -rf ./StarRail-S-GC/x64/Release/*.obj
+        rm -rf ./StarRail-S-GC/x64/Release/*.iobj
+        rm -rf ./StarRail-S-GC/x64/Release/*.txt
+        rm -rf ./StarRail-S-GC/x64/Release/*.recipe
       
     - name: Upload to github
       uses: actions/upload-artifact@v3.1.2
