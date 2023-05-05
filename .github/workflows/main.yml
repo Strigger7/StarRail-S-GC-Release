@@ -42,6 +42,7 @@ jobs:
         rm -rf ./StarRail-S-GC/x64/Release/*.iobj
         rm -rf ./StarRail-S-GC/x64/Release/*.txt
         rm -rf ./StarRail-S-GC/x64/Release/*.recipe
+        rm -rf ./StarRail-S-GC/x64/Release/*.tlog
       
     - name: Upload to github
       uses: actions/upload-artifact@v3.1.2
