@@ -34,11 +34,11 @@ jobs:
     - name: Removing unused files
       shell: bash
       run: |
-        rm -rf ./bin/Release-x64/*.pdb
+        rm -rf ./x64/Release*.pdb
       
     - name: Upload to github
       uses: actions/upload-artifact@v3.1.0
       with:
         name: Star-Rail-GC-Release
-        path: ./bin/Release-x64/*
+        path: ./x64/Release/*
         if-no-files-found: error
