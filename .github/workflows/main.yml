@@ -1,0 +1,44 @@
+name: Publish (Release)
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Clone
+      shell: bash
+      run: git clone --recurse-submodules https://github.com/Z4ee/StarRail-S-GC
+        
+    - name: Build solution
+      working-directory: ./StarRail-S-GC
+      env:
+        SOLUTION_FILE_PATH: ./Star-Rail-GC.sln
+        BUILD_CONFIGURATION: Release
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+        
+    - name: Removing unused files
+      shell: bash
+      run: |
+        rm -rf ./bin/Release-x64/*.pdb
+      
+    - name: Upload to github
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: Star-Rail-GC-Release
+        path: ./bin/Release-x64/*
+        if-no-files-found: error
